@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import { Layout } from 'antd'
 
-function App() {
+import Navbar from './components/navigation/Navbar'
+import Sidebar from './components/navigation/Sidebar'
+import Contents from './components/navigation/Contents'
+
+
+
+const App = () => {
+  const [isCollapsed, setIsCollapsed] = useState(false)
+
+  const callBackToggle = (toggleData) => {
+    setIsCollapsed(toggleData)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <Sidebar isCollapsed={isCollapsed} />
+      <Layout>
+        <Navbar isCollapsed={isCollapsed} onCallBackToggle={callBackToggle} />
+        <Contents />
+      </Layout>
+    </Layout>
   );
 }
 
-export default App;
+export default App

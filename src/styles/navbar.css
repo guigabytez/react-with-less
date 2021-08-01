@@ -8,3 +8,6 @@
 .trigger:hover {
   color: #1890ff;
 }
+.ant-layout-header {
+  background: white;
+}

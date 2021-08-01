@@ -14,7 +14,7 @@ const Contents = ({children}) => {
               padding: 24,
               minHeight: 'auto',
             }}
-        >
+        >   
             {children}
         </Content>
     )

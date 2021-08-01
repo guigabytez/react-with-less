@@ -2,52 +2,42 @@ import React, {useState,useEffect} from 'react'
 import { Form, Input, Button, Row, Col,  } from 'antd'
 import { SearchOutlined } from '@ant-design/icons';
 import AlertMessage from '../../common/AlertMessage'
-// import axios from 'axios';
-// import postsUrl from '../../variables'
+import axios from 'axios';
+import postsUrl from '../../variables'
 
 const SearchForm = (props) => {
-    // console.log('props: ', props);
+    const [searchOutput, setSearchOutput] = useState('')
+    const [inputValue, setInputValue] = useState({
+        title: '',
+        description: ''
+    })
+
     const [ form ] = Form.useForm()
-    const [filterPostsData, setFilterPostsData] = useState( props.postsSearchData)
-    // console.log('props.postsData: ', props.postsData);
-    // const [, forceUpdate] = useState({})
 
-    // useEffect(() => {
-    //     forceUpdate({});
-    //   }, []);
-
-    const onFinish = async (searchInput) => {
-        console.log('searchInput: ', searchInput);
-        let result = []
-        
-        result = props.postsSearchData.filter( ({ title, description }) => {
-            console.log('title, description: ', title, description);
-            
-           
-            return title.search(searchInput) || description.search !== 1
+    const handleInputChange = async ({ target }) => {
+        setInputValue({ ...inputValue, title: target.value })
+        const searchResult = await axios({
+            method: 'get',
+            url: `${postsUrl.BASE_URL}?search=${target.value}`,     
         })
-        if(result){
-           
-            setFilterPostsData(result)
-            props.rerender(Math.random())
-        }else{
-            AlertMessage.onError('No result found')
-        }
-
-    //    const searchResult = await axios({
-    //        method: 'get',
-    //        url: postsUrl.BASE_URL,        
-    //        data: searchInput
-    //    })
-       
+        setSearchOutput(searchResult.data)
+        props.onDataChange(searchResult.data)
     }
     
+    // const handleFinish = async (searchInput) => {
+
+       
+    // }
+
+    console.log('inputValue: ', inputValue);
+   
     return (
         <>
             <Form 
                 form = {form}
                 name="search_bar"
-                onFinish={onFinish}
+                // onFinish={handleFinish}
+                onChange={handleInputChange}
             >
                 <Row >
                     <Col span={12}>
@@ -55,7 +45,7 @@ const SearchForm = (props) => {
                             name="search"
                             rules={[{ required: true, message: 'Please have some input' }]}
                         >
-                            <Input prefix={<SearchOutlined />} placeholder="Search Post..." />
+                            <Input name='search' prefix={<SearchOutlined />} placeholder="Search Post..." />
                         </Form.Item>    
                     </Col>
                     <Col>

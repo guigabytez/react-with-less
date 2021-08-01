@@ -6,9 +6,9 @@ import { Card} from 'antd'
 const Footr = () => {
     return (
        
-            <div style={{ textAlign: 'center'}}>
-                <Card style={{width:'100%',}}>All Rights Reserver Guigabytez ©2021</Card>
-            </div>
+        <div style={{ textAlign: 'center'}}>
+            <Card style={{width:'100%',}}>All Rights Reserver Guigabytez ©2021</Card>
+        </div>
        
     )
 }

@@ -12,7 +12,6 @@ import DateFormatter from '../utils/DateFormatter'
 
 const Post = () => {
     const [postsData, setPostsData] = useState([])
-    
     // const { state: { key } } = useLocation()
     // console.log('key: ', key);
     const [willRender, setReRender] = useState('')
@@ -25,14 +24,13 @@ const Post = () => {
                url: postsUrl.BASE_URL
            })
            setPostsData(posts.data)
-           setFilterPostsData(posts.data)
+        //    setFilterPostsData(posts.data)
        }
        postsRequest()
       
     }, [willRender])
     // [key])
    
-
     const columns = [
           // serves as column
         { title: 'Title', dataIndex: 'title', key: '_id'},
@@ -63,29 +61,7 @@ const Post = () => {
             )},
         },
     ];
-    // -----
-    const [ form ] = Form.useForm()
-    const [filterPostsData, setFilterPostsData] = useState(postsData)
-
-    const onFinish = async (value) => {
-        
     
-        let result = {}
-        
-        result = postsData.filter( ({ title }) => {
-            // console.log('value: ', value);
-            if(value === title) return console.log('title: ', title);
-                       
-           
-            
-        })
-        setFilterPostsData(result)
-        setReRender(Math.random())
-  
-    }
-    // -----------
-    
-
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [type, setType] = useState('')
     const [recordData, setData] = useState('')
@@ -114,42 +90,8 @@ const Post = () => {
 
     return (
         <div>
-            <Form 
-                form = {form}
-                name="search_bar"
-                onFinish={onFinish}
-            >
-                <Row >
-                    <Col span={12}>
-                        <Form.Item
-                            name="search"
-                            rules={[{ required: true, message: 'Please have some input' }]}
-                        >
-                            <Input prefix={<SearchOutlined />} placeholder="Search Post..." />
-                        </Form.Item>    
-                    </Col>
-                    <Col>
-                        <Form.Item shouldUpdate>
-                            {() => (
-                                <Button style={{marginLeft: '5px'}}
-                                    type="primary"
-                                    htmlType="submit"
-                                    disabled={
-                                    !form.isFieldsTouched(true) ||
-                                    !!form.getFieldsError().filter( ({ errors }) => errors.length).length
-                                    }
-                                >
-                                    Search
-                                </Button>
-                            )}
-                        </Form.Item> 
-                    </Col>
-                </Row>           
-            </Form>
-
-
             <Row justify='space-between'>
-                {/* <Col span={18}><SearchForm postsSearchData={postsData} rerender={(value) => setReRender(value)}/></Col> */}
+                <Col span={18}><SearchForm onDataChange={(searchOutput) => setPostsData(searchOutput)} postsSearchData={postsData} rerender={(value) => setReRender(value)}/></Col>
                 <Col span={6}><PostAddForm 
                     rerender={(value) => setReRender(value)}
                 /></Col>

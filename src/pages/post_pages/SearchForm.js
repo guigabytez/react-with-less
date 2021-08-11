@@ -46,7 +46,7 @@ const SearchForm = (props) => {
                             rules={[{ required: true, message: 'Please have some input' }]}
                         >
                             <Input name='search' prefix={<SearchOutlined />} placeholder="Search Post..." />
-                        </Form.Item>    
+                        </Form.Item>
                     </Col>
                     <Col>
                         <Form.Item shouldUpdate>

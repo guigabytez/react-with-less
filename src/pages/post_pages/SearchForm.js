@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from 'react'
 import { Form, Input, Button, Row, Col,  } from 'antd'
 import { SearchOutlined } from '@ant-design/icons';
-import AlertMessage from '../../common/AlertMessage'
+// import AlertMessage from '../../common/AlertMessage'
 import axios from 'axios';
 import postsUrl from '../../variables'
 
